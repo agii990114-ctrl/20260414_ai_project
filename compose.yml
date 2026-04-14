@@ -1,0 +1,55 @@
+services:
+  web-main:
+    image: nginx:1.28
+    container_name: web-main
+    ports:
+      - 80:80
+    volumes:
+      - ./config:/etc/nginx/conf.d:ro
+      - ./main:/usr/share/nginx/html:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - spark-network
+
+  frontend:
+    image: nginx:1.28
+    container_name: frontend
+    volumes:
+      - ./frontend/dist:/usr/share/nginx/html:ro
+      - ./frontend/config:/etc/nginx/conf.d:ro
+    networks:
+      - spark-network      
+
+  backend:
+    image: uv:1
+    container_name: backend
+    volumes:
+      - ./backend:/workspace
+    command: ["uv", "run", "fastapi", "run", "--proxy-headers", "--forwarded-allow-ips", "'*'"]
+    networks:
+      - spark-network      
+
+  db:
+    image: mariadb:12.1.2
+    container_name: db
+    environment:
+      - MARIADB_HOST=localhost
+      - MARIADB_PORT=3306
+      - MARIADB_ROOT_PASSWORD=1234
+      # - MARIADB_DATABASE=edu
+      - TZ=Asia/Seoul
+      - LC_ALL:en_US.UTF-8
+    volumes:
+      - data-mariadb:/var/lib/mysql:rw
+    networks:
+      - spark-network
+
+networks:
+  spark-network:
+    driver: bridge
+
+volumes:
+  data-mariadb:
+    external: true

@@ -19,3 +19,6 @@ jobs:
           npm install
           npm run build
 
+      - name: Deploy with Docker Compose
+        run: |
+          docker compose up -d --build
