@@ -7,12 +7,12 @@ const App = () => {
   const [boards, setBoards] = useState([]);
   const [loadState, setLoadState] = useState(false);
   const [boardState, setBoardState] = useState(false);
-
+  const base_url = "backend";
   const send = (e) => {
     e.preventDefault();
     console.log(prompt);
     setLoadState(true);
-    axios.post('http://localhost:8000/prompt', { prompt })
+    axios.post(`http://${base_url}:8000/prompt`, { prompt })
       .then(response => {
         console.log('Response:', response.data);
         setLoadState(false);
@@ -26,7 +26,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    axios.get('http://localhost:8000/get_list')
+    axios.get(`http://${base_url}:8000/get_list`)
       .then(response => {
         setBoards(response.data.data); 
       })
