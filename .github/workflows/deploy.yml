@@ -16,3 +16,9 @@ jobs:
         with:
           clean: true
 
+      - name: Install and Build Frontend
+        # 프론트엔드 소스가 위치한 폴더명을 지정하세요 (예: ./frontend)
+        working-directory: ./frontend 
+        run: |
+          npm install 
+          npm run build
