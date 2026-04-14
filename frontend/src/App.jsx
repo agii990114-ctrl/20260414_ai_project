@@ -7,7 +7,7 @@ const App = () => {
   const [boards, setBoards] = useState([]);
   const [loadState, setLoadState] = useState(false);
   const [boardState, setBoardState] = useState(false);
-  const base_url = "localhost:80/api";
+  const base_url = "aiedu.tplinkdns.com:6010/api";
   const send = (e) => {
     e.preventDefault();
     console.log(prompt);
