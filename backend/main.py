@@ -8,7 +8,7 @@ app = FastAPI(title="LangChain Ollama Agent API")
 app.include_router(api_router)
 
 origins = [
-    "http://localhost:5173", "http://localhost:80", "http://frontend:5173",
+    "http://localhost:5173", "http://localhost:80", "http://frontend:5173", "http://aiedu.tplinkdns.com:6010"
 ]
 
 app.add_middleware(
