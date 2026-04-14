@@ -23,7 +23,7 @@ services:
       - spark-network      
 
   backend:
-    image: uv:2
+    image: uv:3
     container_name: backend
     environment:
       - OLLAMA_BASE_URL=http://192.168.0.101:11434
