@@ -27,11 +27,11 @@ services:
     container_name: backend
     environment:
       - OLLAMA_BASE_URL=http://192.168.0.101:11434
-      - HOST=db
-      - PORT=3306
-      - USER=root
-      - PASSWORD=1234
-      - DATABASE=edu
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=1234
+      - DB_DATABASE=edu
     volumes:
       - ./backend:/workspace
     command: ["uv", "run", "fastapi", "run", "--proxy-headers", "--forwarded-allow-ips", "'*'"]

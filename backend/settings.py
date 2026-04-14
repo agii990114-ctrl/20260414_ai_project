@@ -4,11 +4,11 @@ class Settings(BaseSettings):
   ollama_base_url: str
   ollama_model_name: str = "gemma4:latest"
   graph_image_path: str = "images"
-  host: str
-  port: str
-  user: str
-  password: str
-  database: str
+  db_host: str
+  db_port: str
+  db_user: str
+  db_password: str
+  db_database: str
 
   model_config = SettingsConfigDict(
     env_file=".env",
