@@ -42,7 +42,7 @@ const App = () => {
         <button type="button" style={{ position: "absolute", top: "10px", right: "10px" }} onClick={() => {setBoardState(!boardState)}} className="btn btn-sm btn-light">
           <span>{boardState?">>" : "<<"}</span>
         </button>
-        <h3 className="text-center mb-3">안녕하세요! 무엇을 도와드릴까요?</h3>
+        <h3 className="text-center mb-3">안녕하세요! 무엇을 도와드릴까요? AI</h3>
         <div className="container text-center" style={{ maxWidth: "700px" }}>
           <div className="input-group border rounded-pill px-3 py-1 shadow-sm" style={{ background: '#fff' }}>
             <input
