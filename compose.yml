@@ -38,11 +38,12 @@ services:
       - MARIADB_HOST=localhost
       - MARIADB_PORT=3306
       - MARIADB_ROOT_PASSWORD=1234
-      # - MARIADB_DATABASE=edu
+      - MARIADB_DATABASE=edu
       - TZ=Asia/Seoul
       - LC_ALL:en_US.UTF-8
     volumes:
       - data-mariadb:/var/lib/mysql:rw
+      - ./mariadb:/docker-entrypoint-initdb.d:ro
     networks:
       - spark-network
 
@@ -52,4 +53,3 @@ networks:
 
 volumes:
   data-mariadb:
-    external: true
