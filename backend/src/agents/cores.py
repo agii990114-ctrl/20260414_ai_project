@@ -2,6 +2,10 @@ from langchain_ollama import ChatOllama
 from langgraph.prebuilt import create_react_agent
 from settings import settings
 from src.agents.tools import insert_record, delete_records, update_record
+import certifi
+import os
+
+os.environ['SSL_CERT_FILE'] = certifi.where()
 
 def get_agent():
     llm = ChatOllama(model=settings.ollama_model_name, base_url=settings.ollama_base_url, temperature=0)
