@@ -1,24 +1,20 @@
-name: CI/CD Pipeline
-
+name: Windows PC Job
+# on: [push]
 on:
   push:
-    branches: [ main ]
-
+    branches: [ "main" ]
 jobs:
   build:
-    # GitHub 서버가 아닌 내 윈도우 실행기에서 실행하도록 지정
-    runs-on: self-hosted 
-    
+    runs-on: self-hosted  # 내 PC에서 실행
     steps:
-      # 1. 리포지토리의 소스 코드를 실행기 폴더로 다운로드
-      - name: Checkout Source Code
+
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          clean: true
+          path: .
 
-      - name: Install and Build Frontend
-        # 프론트엔드 소스가 위치한 폴더명을 지정하세요 (예: ./frontend)
-        working-directory: ./frontend 
+      - name: Build Frontend
+        working-directory: ./frontend
         run: |
-          npm install 
+          npm install
           npm run build
