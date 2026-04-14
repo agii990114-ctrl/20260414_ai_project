@@ -23,7 +23,7 @@ services:
       - spark-network      
 
   backend:
-    image: uv:1
+    image: uv:2
     container_name: backend
     environment:
       - OLLAMA_BASE_URL=http://192.168.0.101:11434
@@ -60,3 +60,4 @@ networks:
 
 volumes:
   data-mariadb:
+
