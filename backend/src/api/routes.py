@@ -8,7 +8,7 @@ router = APIRouter()
 
 
 @router.get("/get_list")
-def get_list(column:str = "title", txt:str = None, no:int = 1):
+def get_list(column:str = "title", txt:str = None, no:int = 0):
     return {"status": "success", "data": get_pre_data(column, txt, no)}
 
 @router.post("/prompt")
