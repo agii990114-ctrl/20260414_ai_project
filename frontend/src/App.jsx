@@ -10,8 +10,8 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   // const itemsPerPage = 5;
-  // const base_url = "aiedu.tplinkdns.com:6010/api";
-  const base_url = "localhost:8000";
+  const base_url = "aiedu.tplinkdns.com:6010/api";
+  // const base_url = "localhost:8000";
 
   const send = (e) => {
     e.preventDefault();
