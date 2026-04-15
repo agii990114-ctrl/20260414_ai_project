@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS edu.`ai_agent` (
 
 -- 테이블 데이터 edu.ai_agent:~9 rows (대략적) 내보내기
 INSERT INTO `ai_agent` (`name`, `title`, `content`) VALUES
-	('김지환', '좋은날', '하하 기분이 좋구나~'),
+	('김지환', '좋은날', '하하 기분이 좋구나~'), 
 	( '하하', '그래?', '기분이 좋아요~'),
 	('하하', '그래?', '기분이 좋아요~'),
 	( '하하', '그래?', '기분이 좋아요~'),
