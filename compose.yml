@@ -48,8 +48,8 @@ services:
       - MARIADB_DATABASE=edu
       - TZ=Asia/Seoul
       - LC_ALL:en_US.UTF-8
-    ports:
-      - 3306:3306
+    # ports:
+    #   - 3306:3306
     volumes:
       - data-mariadb:/var/lib/mysql:rw
       - ./mariadb:/docker-entrypoint-initdb.d:ro
