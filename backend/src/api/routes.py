@@ -8,8 +8,8 @@ router = APIRouter()
 
 
 @router.get("/get_list")
-def get_list():
-    return {"status": "success", "data": get_pre_data()}
+def get_list(column:str = "title", txt:str = None, no:int = 1):
+    return {"status": "success", "data": get_pre_data(column, txt, no)}
 
 @router.post("/prompt")
 def process_prompt(request: PromptRequest):

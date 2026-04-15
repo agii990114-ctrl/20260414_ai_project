@@ -1,9 +1,27 @@
 from src.database.config import config
 import mariadb
 
-def get_pre_data():
+def get_pre_data(column:str, txt:str, no:int):
 
-    sql = "SELECT * FROM ai_agent"
+    page_num = no * 5
+
+    sql = ""
+    sql2 = ""
+
+    if txt:         
+        sql = f"""
+        SELECT * FROM ai_agent where {column} like '%{txt}%' order by regdate DESC, `no` DESC limit 5 offset {page_num};
+        """
+        sql2 = f"""
+        SELECT ceil(count(*)/5) FROM ai_agent where {column} like '%{txt}%';
+        """
+    else:
+        sql = f"""
+        SELECT * FROM ai_agent order by regdate DESC, `no` DESC limit 5 offset {page_num};
+        """
+        sql2 = f"""
+        SELECT ceil(count(*)/5) FROM ai_agent;
+        """
     
     try:
         conn = mariadb.connect(**config)
@@ -15,9 +33,10 @@ def get_pre_data():
         
         columns = [desc[0] for desc in cur.description]
         result = [dict(zip(columns, row)) for row in rows]
-        # 결과 출력 또는 반환
+        cur.execute(sql2)
+        total_count = cur.fetchone()[0]
             
-        return result # 리스트 형태로 반환
+        return (result, total_count) # 리스트 형태로 반환
 
     except mariadb.Error as e:
         return f"오류 발생: {e}"

@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
   ollama_base_url: str
-  ollama_model_name: str = "gemma4:latest"
+  ollama_model_name: str = "gemma4:e4b"
   graph_image_path: str = "images"
   db_host: str
   db_port: str

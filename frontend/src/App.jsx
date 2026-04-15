@@ -8,9 +8,10 @@ const App = () => {
   const [loadState, setLoadState] = useState(false);
   const [boardState, setBoardState] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
-
-  const base_url = "aiedu.tplinkdns.com:6010/api";
+  const [totalPages, setTotalPages] = useState(0);
+  // const itemsPerPage = 5;
+  // const base_url = "aiedu.tplinkdns.com:6010/api";
+  const base_url = "localhost:8000";
 
   const send = (e) => {
     e.preventDefault();
@@ -28,16 +29,24 @@ const App = () => {
       });
   };
 
+  const pageSubmit = (e) => {
+    e.preventDefault();
+    axios.get(`http://${base_url}/get_list`, { params: { no: currentPage} })
+      .then(response => {
+        setBoards(response.data.data[0]);
+        console.log(response.data.data[0]);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
   useEffect(() => {
     axios.get(`http://${base_url}/get_list`)
-      .then(response => { setBoards(response.data.data); })
+      .then(response => { setBoards(response.data.data[0]); setTotalPages(response.data.data[1]-1); })
       .catch(error => { console.error('Error:', error); });
   }, [loadState]);
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = boards ? boards.slice(indexOfFirstItem, indexOfLastItem) : [];
-  const totalPages = Math.ceil((boards ? boards.length : 0) / itemsPerPage);
+  
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -49,8 +58,8 @@ const App = () => {
         <section className={`input-section ${boardState ? 'split-view' : 'full-view'}`}>
           <div className="main-card">
             <div className="toggle-header">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="btn btn-outline-primary list-toggle-btn shadow-sm"
                 onClick={() => setBoardState(!boardState)}
               >
@@ -99,8 +108,8 @@ const App = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentItems.length > 0 ? (
-                    currentItems.map((item) => (
+                  {boards.length > 0 ? (
+                    boards.map((item) => (
                       <tr key={item.no}>
                         <td className="text-center text-muted fw-bold">#{item.no}</td>
                         <td className="fw-semibold text-dark">{item.name}</td>
@@ -121,28 +130,30 @@ const App = () => {
 
             {/* 페이지네이션 UI */}
             {totalPages > 1 && (
-              <ul className="pagination-container">
-                <li>
-                  <button className="page-btn" disabled={currentPage === 1} onClick={() => paginate(currentPage - 1)}>
-                    &lt;
-                  </button>
-                </li>
-                {[...Array(totalPages)].map((_, idx) => (
-                  <li key={idx + 1}>
-                    <button 
-                      className={`page-btn ${currentPage === idx + 1 ? 'active' : ''}`}
-                      onClick={() => paginate(idx + 1)}
-                    >
-                      {idx + 1}
+              <form onSubmit={pageSubmit}>
+                <ul className="pagination-container">
+                  <li>
+                    <button type="submit" className="page-btn" disabled={currentPage === 1} onClick={() => paginate(currentPage - 1)}>
+                      &lt;
                     </button>
                   </li>
-                ))}
-                <li>
-                  <button className="page-btn" disabled={currentPage === totalPages} onClick={() => paginate(currentPage + 1)}>
-                    &gt;
-                  </button>
-                </li>
-              </ul>
+                  {[...Array(totalPages)].map((_, idx) => (
+                    <li key={idx + 1}>
+                      <button type="submit"
+                        className={`page-btn ${currentPage === idx + 1 ? 'active' : ''}`}
+                        onClick={() => paginate(idx + 1)}
+                      >
+                        {idx + 1}
+                      </button>
+                    </li>
+                  ))}
+                  <li>
+                    <button type="submit" className="page-btn" disabled={currentPage === totalPages} onClick={() => paginate(currentPage + 1)}>
+                      &gt;
+                    </button>
+                  </li>
+                </ul>
+              </form>
             )}
           </aside>
         )}

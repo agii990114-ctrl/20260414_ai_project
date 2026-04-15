@@ -20,10 +20,12 @@ USE `edu`;
 
 -- 테이블 edu.ai_agent 구조 내보내기
 CREATE TABLE IF NOT EXISTS `ai_agent` (
-  `no` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `content` varchar(255) DEFAULT NULL,
+	`no` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`name` VARCHAR(30) ,
+	`title` VARCHAR(255) ,
+	`content` VARCHAR(255),
+	`regdate` DATETIME DEFAULT CURRENT_TIMESTAMP,
+	`moddate` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   PRIMARY KEY (`no`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
