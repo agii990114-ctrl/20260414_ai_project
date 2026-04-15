@@ -12,7 +12,7 @@ const App = () => {
   // const itemsPerPage = 5;
   const base_url = "aiedu.tplinkdns.com:6010/api";
   // const base_url = "localhost:8000";
-
+  console.log(boards)
   const send = (e) => {
     e.preventDefault();
     if (!prompt.trim()) return;
